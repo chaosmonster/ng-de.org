@@ -15,6 +15,7 @@ branches:
   only:
     - master
     - beta
+    - ng-de-2019
 
 #set notifications frequency
 notifications:
@@ -47,11 +48,13 @@ script:
   - set -e
   - if [ "$TRAVIS_BRANCH" == "master" ]; then JEKYLL_ENV=production jekyll build ; fi
   - if [ "$TRAVIS_BRANCH" == "beta" ]; then jekyll build --config _config.yml,_config.beta.yml ; fi
+  - if [ "$TRAVIS_BRANCH" == "ng-de-2019" ]; then jekyll build --config _config.yml,_config.2019.yml ; fi
 
 after_success:
   # deploy to firebase using stored token.
   - if [ "$TRAVIS_BRANCH" == "master" ]; then firebase deploy --token "$FIREBASE_TOKEN" --project master ; fi
   - if [ "$TRAVIS_BRANCH" == "beta" ]; then firebase deploy --token "$FIREBASE_TOKEN" --project beta; fi
+  - if [ "$TRAVIS_BRANCH" == "ng-de-2019" ]; then firebase deploy --token "$FIREBASE_TOKEN" --project 2019; fi
 
 env:
   global:

@@ -30,7 +30,7 @@ before_install:
   #use rvm 2.3
   - rvm use 2.3
   #set home varaibles
-  - . $HOME/.nvm/nvm.sh && nvm install 10.1 && nvm use 10.1
+  - . $HOME/.nvm/nvm.sh && nvm install 12.14 && nvm use 12.14
   #install gems through bundler
   - gem install bundler
   #if gems are missing this script will get the missing gems.
@@ -48,7 +48,7 @@ script:
   - set -e
   - if [ "$TRAVIS_BRANCH" == "master" ]; then JEKYLL_ENV=production jekyll build ; fi
   - if [ "$TRAVIS_BRANCH" == "beta" ]; then jekyll build --config _config.yml,_config.beta.yml ; fi
-  - if [ "$TRAVIS_BRANCH" == "ng-de-2019" ]; then jekyll build --config _config.yml,_config.2019.yml ; fi
+  - if [ "$TRAVIS_BRANCH" == "ng-de-2019" ]; then jekyll build config _config.yml,_config.2019.yml ; fi
 
 after_success:
   # deploy to firebase using stored token.

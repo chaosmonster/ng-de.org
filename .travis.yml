@@ -8,7 +8,7 @@ cache:
 
 #define node js version to use
 node_js:
-  - "10"
+  - "12"
 
 #choose branch on commit of which this script should excecute
 branches:

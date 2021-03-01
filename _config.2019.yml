@@ -1,2 +1,3 @@
 # Site settings
 url: "https://2019.ng-de.org"
+noindex: true

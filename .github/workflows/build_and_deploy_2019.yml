@@ -1,0 +1,28 @@
+name: Build Jekyll and Deploy to Firebase NG-DE 2019
+
+on:
+  push:
+    branches: [ ng-de-2019 ]
+  pull_request:
+    branches: [ ng-de-2019 ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build 2019
+      run: |
+        docker run \
+        -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
+        jekyll/builder:latest /bin/bash -c "chmod 777 /srv/jekyll && jekyll build --config _config.yml,_config.2019.yml"
+
+    - name: Deploy Beta
+      if: github.ref == 'refs/heads/ng-de-2019'
+      uses: doonstore/firebase-deploy@v1
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        FIREBASE_PROJECT: 'ngdeconf-2019'
